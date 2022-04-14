@@ -44,7 +44,7 @@ h1 {
     margin: 20px auto 20px 20px;
     border-radius: 10px;
     box-sizing: border-box;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .task {
     position: relative;
@@ -58,6 +58,20 @@ h1 {
     word-break: break-all;
 }
 .X {
+    cursor: pointer;
+    position: absolute;
+    top: 9px;
+    right: 30px;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid #C4C4C4;
+    color: #C4C4C4;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: 300;
+}
+.textX {
     cursor: pointer;
     position: absolute;
     top: 9px;
@@ -113,6 +127,9 @@ input:focus {
     outline: none;
 }
 .X:hover {
+    background-color: #833AE0;
+}
+.textX:hover {
     background-color: #833AE0;
 }
 .sortUp {

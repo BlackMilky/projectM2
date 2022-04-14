@@ -1,5 +1,10 @@
 let addButton = document.querySelector(`.addTaskButton`);
 let arrOfTasks = [];
+let sortDiv = document.querySelector(`.sort`);
+sortDiv.addEventListener(`click`, sortElements);
+let textXButton = document.querySelector(`.textX`);
+let divTasks = document.querySelector(`.tasks`);
+textXButton.addEventListener(`click`, (e) => {e.target.previousElementSibling.value = ``;});
 addButton.addEventListener(`mouseover`, addHover);
 addButton.addEventListener(`mouseout`, removeHover);
 function addHover() {
@@ -30,8 +35,8 @@ function sortUp () {
 let addTaskInput = document.querySelector(`.addTaskButton`);
 addTaskInput.addEventListener(`click`, addTask);
 let idCounter = 0;
+let taskInput = document.querySelector(`.inputAddTask`);
 function addTask(e) {
-    let taskInput = document.querySelector(`.inputAddTask`);
     if (taskInput.value.replace(/\s/g,"") == "" || taskInput.value === null || taskInput.value === undefined) {
         document.querySelector(`.error`).style.display = `block`;
         setInterval(() =>{ 
@@ -42,19 +47,60 @@ function addTask(e) {
             id: idCounter,
             taskName: taskInput.value
         });
-        let newTask = document.createElement(`div`);
-        let divTasks = document.querySelector(`.tasks`);
-        let xDiv = document.createElement(`div`);
-        let taskSpan = document.createElement(`span`);
-        taskSpan.innerText = taskInput.value;
-        newTask.append(taskSpan);
-        newTask.classList.add(`task`);
-        newTask.id = idCounter;
-        idCounter++;
-        divTasks.append(newTask);
-        xDiv.classList.add(`X`);
-        xDiv.innerText = `x`;
-        newTask.append(xDiv);
-        divTasks.style.display = `block`;
+        createTask(taskInput.value, idCounter);
     }
+}
+function createTask (inputText, divId) {
+    let newTask = document.createElement(`div`);
+    let xDiv = document.createElement(`div`);
+    let taskSpan = document.createElement(`span`);
+    taskSpan.innerText = inputText;
+    newTask.append(taskSpan);
+    newTask.classList.add(`task`);
+    newTask.id = divId;
+    idCounter++;
+    divTasks.append(newTask);
+    xDiv.classList.add(`X`);
+    xDiv.innerText = `x`;
+    xDiv.addEventListener(`click`, removeTask);
+    newTask.append(xDiv);
+    divTasks.style.display = `block`;
+    taskInput.value = ``;
+};
+function removeTask (e) {
+    arrOfTasks.forEach((el, index) => {
+        if (el.id === Number(e.target.parentElement.id)) {
+            arrOfTasks.splice(index, 1);
+        }
+    })
+    e.target.parentElement.remove();
+    if (arrOfTasks.length > 0) {}
+    else { divTasks.style.display = `none`;}
+}
+function sortElements () {
+    if (sortDiv.firstElementChild.classList.contains(`sortUp`)) {
+        arrOfTasks = arrOfTasks.sort((a, b) => {
+            if (a.taskName < b.taskName) {
+                return -1;
+            }
+            if (a.taskName > b.taskName) {
+                return 1;
+            }
+            return 0;
+        });
+        document.querySelectorAll(`.task`).forEach(el => {el.remove();})
+        arrOfTasks.map(value => {createTask(value.taskName, value.id)})
+    } else {
+        arrOfTasks = arrOfTasks.sort((a, b) => {
+            if (a.taskName < b.taskName) {
+                return 1;
+            }
+            if (a.taskName > b.taskName) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+    document.querySelectorAll(`.task`).forEach(el => {el.remove();})
+    arrOfTasks.map(value => {createTask(value.taskName, value.id)})
 }
