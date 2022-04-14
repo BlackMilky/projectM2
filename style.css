@@ -3,7 +3,7 @@
     font-family: 'Roboto';
     width: 336px;
     min-height: 236px;
-    max-height: 1000px;
+    max-height: 600px;
     margin: 0 auto;
     border: 1px solid #C4C4C4;
     border-radius: 10px;
@@ -37,18 +37,25 @@ h1 {
     position: relative;
 }
 .tasks {
-    display: block;
+    display: none;
     width: 288px;
+    max-height: 330px;
     border: 1px solid #C4C4C4;
     margin: 20px auto 20px 20px;
     border-radius: 10px;
     box-sizing: border-box;
+    overflow-y: scroll;
 }
 .task {
     position: relative;
     font-weight: 400;
     font-size: 14px;
     padding: 12px 0 12px 27px;
+}
+.task span {
+    display: block;
+    width: 180px;
+    word-break: break-all;
 }
 .X {
     cursor: pointer;
@@ -125,4 +132,12 @@ input:focus {
 }
 .sortDown:hover {
     background: url(icons/BlackDown.svg) no-repeat;
+}
+.error {
+    display: none;
+    color: red;
+    font-size: 10px;
+    position: absolute;
+    left: 55px;
+    top: 35px;
 }
