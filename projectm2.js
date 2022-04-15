@@ -7,6 +7,15 @@ let divTasks = document.querySelector(`.tasks`);
 textXButton.addEventListener(`click`, (e) => {e.target.previousElementSibling.value = ``;});
 addButton.addEventListener(`mouseover`, addHover);
 addButton.addEventListener(`mouseout`, removeHover);
+let addTaskInput = document.querySelector(`.addTaskButton`);
+addTaskInput.addEventListener(`click`, addTask);
+let idCounter = 0;
+let taskInput = document.querySelector(`.inputAddTask`);
+taskInput.addEventListener(`keyup`, (log) =>{
+    if (log.key === `Enter`) {
+        addTask();
+    }
+});
 function addHover() {
     let addText = document.querySelector(`.plus`);
     addText.style.backgroundColor = `#AA68FE`;
@@ -31,11 +40,6 @@ function sortUp () {
     sortButton.removeEventListener(`click`, sortUp);
     sortButton.addEventListener(`click`, sortDown);
 };
-
-let addTaskInput = document.querySelector(`.addTaskButton`);
-addTaskInput.addEventListener(`click`, addTask);
-let idCounter = 0;
-let taskInput = document.querySelector(`.inputAddTask`);
 function addTask(e) {
     if (taskInput.value.replace(/\s/g,"") == "" || taskInput.value === null || taskInput.value === undefined) {
         document.querySelector(`.error`).style.display = `block`;
